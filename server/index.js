@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const dotenv = require("dotenv").config();
+
 const cors = require("cors");
 
 const authRoutes = require("./routes/auth.js")
@@ -21,7 +21,7 @@ app.use("/bookings", bookingRoutes)
 app.use("/users", userRoutes)
 
 /* MONGOOSE SETUP */
-const PORT = 3001;
+const PORT =process.env.PORT || 3001;
 mongoose.connect(process.env.MONGO_URL)
   .then(() => {
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
