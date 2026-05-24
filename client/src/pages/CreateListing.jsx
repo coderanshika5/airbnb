@@ -128,7 +128,7 @@ const CreateListing = () => {
       });
 
       /* Send a POST request to server */
-      const response = await fetch("http://localhost:3001/properties/create", {
+      const response = await fetch("https://airbnb-production-8011.up.railway.app/properties/create", {
         method: "POST",
         body: listingForm,
       });

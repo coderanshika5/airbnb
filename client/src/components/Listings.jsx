@@ -18,8 +18,8 @@ const Listings = () => {
     try {
       const response = await fetch(
         selectedCategory !== "All"
-          ? `http://localhost:3001/properties?category=${selectedCategory}`
-          : "http://localhost:3001/properties",
+          ? `https://airbnb-production-8011.up.railway.app/properties?category=${selectedCategory}`
+          : "https://airbnb-production-8011.up.railway.app/properties",
         {
           method: "GET",
         }
