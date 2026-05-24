@@ -78,9 +78,9 @@ const ListingCard = ({
           {listingPhotoPaths?.map((photo, index) => (
             <div key={index} className="slide">
               <img
-                src={`https://airbnb-production-8011.up.railway.app/${photo?.replace("public", "")}`}
-                alt={`photo ${index + 1}`}
-              />
+  src={`https://airbnb-production-8011.up.railway.app/${photo?.replace("public", "")}`}
+  alt={`listing ${index + 1}`}  
+/>
               <div
                 className="prev-button"
                 onClick={(e) => {

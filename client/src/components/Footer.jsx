@@ -1,5 +1,6 @@
 import "../styles/Footer.scss"
-import { LocationOn, LocalPhone, Email } from "@mui/icons-material"
+// ✅ Add LocalPhone and Email to the existing MUI import
+import { LocationOn, LocalPhone, Email } from "@mui/icons-material";
 const Footer = () => {
   return (
     <div className="footer">

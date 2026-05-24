@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "../styles/ListingDetails.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { facilities } from "../data";
@@ -17,7 +17,7 @@ const ListingDetails = () => {
   const { listingId } = useParams();
   const [listing, setListing] = useState(null);
 
-  const getListingDetails = async () => {
+  const getListingDetails = useCallback(async () => {
     try {
       const response = await fetch(
         `https://airbnb-production-8011.up.railway.app/properties/${listingId}`,
@@ -32,11 +32,11 @@ const ListingDetails = () => {
     } catch (err) {
       console.log("Fetch Listing Details Failed", err.message);
     }
-  };
+  }, [listingId]);
 
   useEffect(() => {
     getListingDetails();
-  }, []);
+  }, [getListingDetails]);
 
   console.log(listing)
 
@@ -51,13 +51,12 @@ const ListingDetails = () => {
   ]);
 
   const handleSelect = (ranges) => {
-    // Update the selected date range when user makes a selection
     setDateRange([ranges.selection]);
   };
 
   const start = new Date(dateRange[0].startDate);
   const end = new Date(dateRange[0].endDate);
-  const dayCount = Math.round(end - start) / (1000 * 60 * 60 * 24); // Calculate the difference in day unit
+  const dayCount = Math.round(end - start) / (1000 * 60 * 60 * 24);
 
   /* SUBMIT BOOKING */
   const customerId = useSelector((state) => state?.user?._id)
@@ -104,10 +103,11 @@ const ListingDetails = () => {
         </div>
 
         <div className="photos">
-          {listing.listingPhotoPaths?.map((item) => (
+          {listing.listingPhotoPaths?.map((item, index) => (
             <img
+              key={index}
               src={`https://airbnb-production-8011.up.railway.app/${item.replace("public", "")}`}
-              alt="listing photo"
+              alt={`listing ${index + 1}`}
             />
           ))}
         </div>
@@ -128,6 +128,7 @@ const ListingDetails = () => {
               "public",
               ""
             )}`}
+            alt={`${listing.creator.firstName} ${listing.creator.lastName}`}
           />
           <h3>
             Hosted by {listing.creator.firstName} {listing.creator.lastName}
